@@ -3,32 +3,7 @@
     "version": "1.1.1",
     "props": {
       "angularVersion": "~1.5.3",
-      "angularModules": [
-        {
-          "key": "animate",
-          "module": "ngAnimate"
-        },
-        {
-          "key": "cookies",
-          "module": "ngCookies"
-        },
-        {
-          "key": "touch",
-          "module": "ngTouch"
-        },
-        {
-          "key": "sanitize",
-          "module": "ngSanitize"
-        },
-        {
-          "key": "messages",
-          "module": "ngMessages"
-        },
-        {
-          "key": "aria",
-          "module": "ngAria"
-        }
-      ],
+      "angularModules": [],
       "jQuery": {
         "key": "jqLite"
       },
@@ -53,9 +28,9 @@
         "extension": "scss"
       },
       "jsPreprocessor": {
-        "key": "noJsPrepro",
+        "key": "babel",
         "extension": "js",
-        "srcExtension": "js"
+        "srcExtension": "es6"
       },
       "htmlPreprocessor": {
         "key": "noHtmlPrepro",
