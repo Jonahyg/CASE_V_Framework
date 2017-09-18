@@ -3,7 +3,6 @@ var app = express()
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var database;
 var Message = mongoose.model('Message', 
 {
 	msg: String
@@ -11,6 +10,7 @@ var Message = mongoose.model('Message',
 
 
 app.use(bodyParser.json());
+app.get('/api/message', GetMessages)
 
 app.use(function(req, res, next)
 {
@@ -29,12 +29,19 @@ app.post('/api/message', function(req, res)
 
 })
 
+function GetMessages(req, res)
+{
+	Message.find({}).exec(function(err, result)
+	{
+		res.send(result);
+	})
+}
+
 mongoose.connect("mongodb://localhost:27017/test", function(err, db)
 {
 	if(!err)
 	{
 		console.log("we are connected to mongo");
-		database = db;
 	}
 })
 var server = app.listen(5000, function()
