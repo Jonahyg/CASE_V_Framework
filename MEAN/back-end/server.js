@@ -2,15 +2,10 @@ var express = require('express');
 var app = express()
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-var Message = mongoose.model('Message', 
-{
-	msg: String
-});
-
+var Message = require('./models/Message');
+var User = require('./models/user');
 
 app.use(bodyParser.json());
-app.get('/api/message', GetMessages)
 
 app.use(function(req, res, next)
 {
@@ -19,6 +14,7 @@ app.use(function(req, res, next)
 	next();
 })
 
+app.get('/api/message', GetMessages);
 app.post('/api/message', function(req, res)
 {
 	console.log(req.body);
@@ -27,6 +23,24 @@ app.post('/api/message', function(req, res)
 	message.save();
 	res.status(200);
 
+})
+app.post('/auth/register', function(req, res)
+{
+	console.log(req.body);
+
+	var user = new User(req.body);
+
+	user.save(function(err, result))
+	{
+		if(err)
+		{
+			res.status(500).send(
+				{
+					message: err.message
+				});
+		}
+		res.status(200);
+	}
 })
 
 function GetMessages(req, res)
