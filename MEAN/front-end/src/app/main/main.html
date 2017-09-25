@@ -1,8 +1,6 @@
 <div class="container">
 
-  <div>
-    <acme-navbar creation-date="main.creationDate"></acme-navbar>
-  </div>
+ 
     <div class="panel panel-default">
       <div class="panel-heading"> Post a Message </div>
       <div class="panel-body">
@@ -10,6 +8,17 @@
         <textarea class="form-control custom" rows=3 style="resize:none" ng-model="main.message"></textarea>
         <span class="input-group-addon btn btn-primary" ng-click="main.postMessage()"> Post </span>
       </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"> Messages </div>
+      <div class="panel-body">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="message in main.messages">
+                {{message.msg}}
+            </li>  
+          </ul>
       </div>
     </div>
 
