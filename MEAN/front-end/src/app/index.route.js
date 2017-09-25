@@ -14,5 +14,6 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controllerAs: 'auth'
     });
 
+
   $urlRouterProvider.otherwise('/');
 }
