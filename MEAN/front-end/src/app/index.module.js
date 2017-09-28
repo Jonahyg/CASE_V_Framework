@@ -5,20 +5,13 @@ import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { AuthController } from './auth/auth.controller';
-<<<<<<< HEAD
-import { CompareToDirective } from '../app/directives/compareto.directive';
-=======
+import { NavbarController } from './components/navbar/navbar.controller';
 import { CompareToDirective } from './directives/compareTo.directive';
->>>>>>> 8b7a05e2bb966fbfc83fd089eee60d35c1428578
 import { GithubContributorService } from '../app/components/githubContributor/githubContributor.service';
 import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b7a05e2bb966fbfc83fd089eee60d35c1428578
 angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer'])
   .constant('API_URL', 'http://localhost:5000/')
   .constant('malarkey', malarkey)
@@ -30,6 +23,7 @@ angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer'])
   .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
   .controller('AuthController', AuthController)
+  .controller('NavbarController', NavbarController)
   .directive('acmeNavbar', NavbarDirective)
   .directive('acmeMalarkey', MalarkeyDirective)
   .directive('compareTo', CompareToDirective);
