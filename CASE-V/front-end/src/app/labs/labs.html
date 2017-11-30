@@ -1,4 +1,16 @@
 <div class="container">
-	{{ RandomString }}
-	<span class="input-group-addon btn btn-primary" ng-click="labs.click()">
+	<label for="Images"> Select Image you wish to Create instance of: </label>
+	<select name="Images" ng-model="data.model">
+		<option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
+	</select>
+	<button ng-disabled="data.model == null" ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
+	<br>
+	<br>
+	<br>
+	<hr>
+	<h1> Instances </h1>
+	{{data.stri}}
+	<select name="Instances">
+		<option ng-repeat="instance in data.instances" value="{{image.name}}"> {{image.name}} </option>
+	</select>
 </div>
