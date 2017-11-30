@@ -15,9 +15,12 @@ str2 = ''
 vm_name = "test"
 for server in conn.compute.servers():
 	str2 = server.id
-	print(server.links)
+	print(server.name)
 
 
+for image in conn.image.images():
+	print image.name
+	
 era = conn.compute.find_image(str)
 print era
 
