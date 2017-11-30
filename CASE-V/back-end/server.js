@@ -14,7 +14,8 @@ function setOptions(arguements)
 {
 	options = {
 		scriptPath: '../scripts',
-		args: arguements
+		args: arguements,
+		pythonOptions: ['-u']
 	};
 }
 app.use(function(req, res, next)
@@ -24,16 +25,41 @@ app.use(function(req, res, next)
 	next();
 })
 app.use(bodyParser.json());
-app.post('/api/test', function(req, res)
+app.post('/api/images', function(req, res)
 {
 	setOptions(req.body.test);
-	var shell = new PythonShell("script.py", options);
+	var shell = new PythonShell("list_images.py", options);
 	shell.on('message', function (message)
 	{
+		console.log(message)
 		res.send(message);
 	})
 	shell.end();
 })
+
+app.post('/api/instance', function(req, res)
+{
+	setOptions(req.body.test);
+	var shell = new PythonShell("create_instance.py", options);
+	shell.on('message', function (message)
+	{
+		console.log(message)
+		res.send(message);
+	})
+	shell.end();
+})
+app.post('/api/instances', function(req, res)
+{
+	setOptions(req.body.test);
+	var shell = new PythonShell("list_instances.py", options);
+	shell.on('message', function (message)
+	{
+		console.log(message)
+		res.send(message);
+	})
+	shell.end();
+})
+
 mongoose.connect("mongodb://localhost:27017/test", function(err,db){
     if(!err){
         console.log("we are connected to mongo");
