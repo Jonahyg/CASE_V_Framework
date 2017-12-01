@@ -1,22 +1,25 @@
 export class LabsController {
-    constructor ($scope, $http) {
+    constructor ($scope, $http, $sce) {
     'ngInject';
     this.$http = $http;
     this.$scope = $scope;
+    this.$sce = $sce;
     this.get_images()
     this.get_instances()
     this.$scope.data = {
     	model:null,
     	stri: "",
     	images: [],
-    	instances: []
+    	instances: [],
+    	iframe: {height: "0", width: "0", src: ""},
+    	vm_name: ""
     };
 	}
 	get_images()
 	{
 		var rr = this;
 		var items = 0;
-		this.$http.post('http://10.180.6.235:5000/api/images', {test: "test2"}).then(function(result)
+		this.$http.post('http://172.25.0.140:5000/api/images', {test: "test2"}).then(function(result)
 		{
 			rr.$scope.data.images = [];
 			//console.log(result);
@@ -35,7 +38,7 @@ export class LabsController {
 		var rr = this;
 		if(this.$scope.data.model != null)
 		{
-			this.$http.post('http://10.180.6.235:5000/api/instance', {test: this.$scope.data.model}).then(function(result)
+			this.$http.post('http://172.25.0.140:5000/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name]}).then(function(result)
 			{
 				if(result.data == "ACTIVE")
 				{
@@ -48,9 +51,9 @@ export class LabsController {
 	{
 		var rr = this;
 		var items = 0;
-		this.$http.post('http://10.180.6.235:5000/api/instances', {test: "test2"}).then(function(result)
+		this.$http.post('http://172.25.0.140:5000/api/instances', {test: "test2"}).then(function(result)
 		{
-			console.log(result.data.length)
+			console.log(result.data.length);
 			if(result.data.length == 0)
 			{
 				rr.$scope.data.stri = "There are no Instances to display";
@@ -69,6 +72,18 @@ export class LabsController {
 					rr.$scope.data.instances.push(entry)
 				}
 			}
+		})
+	}
+	get_url(vm_name)
+	{
+		var rr = this;
+		this.$http.post('http://172.25.0.140:5000/api/show', {test: vm_name}).then(function(result)
+		{
+			console.log(result.data);
+			var url = result.data;
+			rr.$scope.data.iframe.url = rr.$sce.trustAsResourceUrl(url);
+			rr.$scope.data.iframe.width = "1000";
+			rr.$scope.data.iframe.height = "1000";
 		})
 	}
 }

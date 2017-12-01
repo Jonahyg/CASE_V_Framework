@@ -3,14 +3,23 @@
 	<select name="Images" ng-model="data.model">
 		<option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
 	</select>
-	<button ng-disabled="data.model == null" ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
+	<br>
+	<label for="Name"> Name of Instance </label>
+	<input name="Name" class="form-control" ng-model="data.vm_name">
+	<button ng-disabled="data.model == null || data.vm_name == ''" ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
 	<br>
 	<br>
 	<br>
 	<hr>
 	<h1> Instances </h1>
 	{{data.stri}}
-	<select name="Instances">
-		<option ng-repeat="instance in data.instances" value="{{image.name}}"> {{image.name}} </option>
-	</select>
+	<ul class="list-group">
+        <li class="list-group-item" ng-repeat="instance in data.instances">
+                {{instance.name}}
+                <button ng-click="labs.get_url(instance.name)" class="btn btn-default"> View </button>
+        </li>  
+    </ul>
+    <iframe height="{{data.iframe.height}}" width="{{data.iframe.width}}" ng-src="{{data.iframe.url}}">
+        Something wrong...
+    </iframe>
 </div>
