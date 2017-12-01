@@ -59,6 +59,17 @@ app.post('/api/instances', function(req, res)
 	})
 	shell.end();
 })
+app.post('/api/show', function(req, res)
+{
+	setOptions(req.body.test);
+	var shell = new PythonShell("show_instance.py", options);
+	shell.on('message', function (message)
+	{
+		console.log(message);
+		res.send(message);
+	})
+	shell.end();
+})
 
 mongoose.connect("mongodb://localhost:27017/test", function(err,db){
     if(!err){
