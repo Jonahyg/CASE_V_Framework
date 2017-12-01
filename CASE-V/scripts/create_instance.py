@@ -5,6 +5,7 @@ import subprocess
 import sys
 
 image_name = sys.argv[1]
+instance_name = sys.argv[2]
 
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	username=env['OS_USERNAME'],
@@ -21,6 +22,6 @@ image = conn.compute.find_image(image_name)
 flavor = conn.compute.find_flavor("m1.medium")
 network = conn.network.find_network(network_name)
 
-server = conn.compute.create_server(name="test", image_id=image.id, flavor_id=flavor.id, networks=[{"uuid": network.id}])
+server = conn.compute.create_server(name=instance_name, image_id=image.id, flavor_id=flavor.id, networks=[{"uuid": network.id}])
 server = conn.compute.wait_for_server(server)
 print server.status
