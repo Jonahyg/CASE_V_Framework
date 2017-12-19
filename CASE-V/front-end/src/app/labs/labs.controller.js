@@ -1,9 +1,10 @@
 export class LabsController {
-    constructor ($scope, $http, $sce) {
+    constructor ($scope, $http, $sce, $rootScope) {
     'ngInject';
     this.$http = $http;
     this.$scope = $scope;
     this.$sce = $sce;
+    this.$rootScope = $rootScope;
     this.get_images()
     this.get_instances()
     this.$scope.data = {
@@ -19,7 +20,7 @@ export class LabsController {
 	{
 		var rr = this;
 		var items = 0;
-		this.$http.post('http://172.25.0.140:5000/api/images', {test: "test2"}).then(function(result)
+		this.$http.post(this.$rootScope.serverURL + '/api/images', {test: "test2"}).then(function(result)
 		{
 			rr.$scope.data.images = [];
 			//console.log(result);
@@ -38,7 +39,7 @@ export class LabsController {
 		var rr = this;
 		if(this.$scope.data.model != null)
 		{
-			this.$http.post('http://172.25.0.140:5000/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name]}).then(function(result)
+			this.$http.post(this.$rootScope.serverURL + '/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name]}).then(function(result)
 			{
 				if(result.data == "ACTIVE")
 				{
@@ -48,10 +49,10 @@ export class LabsController {
 		}
 	}
 	get_instances()
-	{
+	{+
 		var rr = this;
 		var items = 0;
-		this.$http.post('http://172.25.0.140:5000/api/instances', {test: "test2"}).then(function(result)
+		this.$http.post(this.$rootScope.serverURL + '/api/instances', {test: "test2"}).then(function(result)
 		{
 			console.log(result.data.length);
 			if(result.data.length == 0)
@@ -77,7 +78,7 @@ export class LabsController {
 	get_url(vm_name)
 	{
 		var rr = this;
-		this.$http.post('http://172.25.0.140:5000/api/show', {test: vm_name}).then(function(result)
+		this.$http.post(this.$rootScope.serverURL + '/api/show', {test: vm_name}).then(function(result)
 		{
 			console.log(result.data);
 			var url = result.data;

@@ -1,5 +1,5 @@
 export class MainController {
-  constructor ($timeout, webDevTec, toastr) {
+  constructor ($timeout, webDevTec, toastr, $rootScope){
     'ngInject';
 
     this.awesomeThings = [];
@@ -8,6 +8,7 @@ export class MainController {
     this.toastr = toastr;
 
     this.activate($timeout, webDevTec);
+    $rootScope.serverURL = "http://10.180.6.235:5000";
   }
 
   activate($timeout, webDevTec) {

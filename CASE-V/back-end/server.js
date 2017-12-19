@@ -3,6 +3,9 @@ var app = express();
 var mongoose = require('mongoose');
 var PythonShell = require('python-shell');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
+console.log(privileges);
 /*
 app.post('/app/message', function(req, res){
     console.log(req.body);
@@ -25,6 +28,9 @@ app.use(function(req, res, next)
 	next();
 })
 app.use(bodyParser.json());
+
+
+
 app.post('/api/images', function(req, res)
 {
 	setOptions(req.body.test);
@@ -70,12 +76,17 @@ app.post('/api/show', function(req, res)
 	})
 	shell.end();
 })
+app.post('')
 
 mongoose.connect("mongodb://localhost:27017/test", function(err,db){
     if(!err){
         console.log("we are connected to mongo");
         
         //db.collection('messages').insertOne({'msg':'test'});
+    }
+    else
+    {
+    	//console.log(err);
     }
 })
 
