@@ -1,5 +1,5 @@
 <div class="container">
-    <!--<div class="col-md-6">
+    <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">Register</div>
             <div class="panel-body">
@@ -17,15 +17,15 @@
                         <input type="password" class="form-control" compare-to="register.user.pwd" name="pwdConfirm" ng-model="pwdConfirm">
                     </div>
                     <div class="form-group">
-                        <label for="levels"> Select Image you wish to Create instance of: </label>
-                        <select name="levels" ng-model="register.user.group">-->
-                           <!-- <option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
-                        </select>-->
-                    <!--</div>
+                        <label for="levels"> User Privilege Level </label>
+                        <select name="levels">
+                           <option ng-repeat="level in register.levels" value="{{level}}"> {{level}} </option>
+                        </select>
+                    </div>
                     <span ng-show="reg.pwdConfirm.$dirty && reg.pwdConfirm.$invalid">Passwords do not match</span>
-                    <button ng-disabled="reg.pwdConfirm.$invalid" type="submit" class="btn btn-default">Submit</button>
+                    <button ng-disabled="reg.pwdConfirm.$invalid || reg.pwd.length" type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
         </div>
-    </div>   --> 
+    </div> 
 </div>
