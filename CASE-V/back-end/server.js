@@ -4,8 +4,7 @@ var mongoose = require('mongoose');
 var PythonShell = require('python-shell');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
-console.log(privileges);
+
 /*
 app.post('/app/message', function(req, res){
     console.log(req.body);
@@ -30,7 +29,11 @@ app.use(function(req, res, next)
 app.use(bodyParser.json());
 
 
-
+app.get('/api/levels', function(req, res)
+{
+	var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
+	res.send(privileges["Levels"]);
+})
 app.post('/api/images', function(req, res)
 {
 	setOptions(req.body.test);
