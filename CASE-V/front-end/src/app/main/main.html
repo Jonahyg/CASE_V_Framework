@@ -1,25 +1,60 @@
+<script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>   
 <div class="container">
-
- 
-    <div class="panel panel-default">
-      <div class="panel-heading"> Post a Message </div>
-      <div class="panel-body">
-      <div class="input-group">
-        <textarea class="form-control custom" rows=3 style="resize:none" ng-model="main.message"></textarea>
-        <span class="input-group-addon btn btn-primary" ng-click="main.postMessage()"> Post </span>
-      </div>
-      </div>
+  <div class="col-md-8">
+        News
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"> Messages </div>
-      <div class="panel-body">
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="message in main.messages">
-                {{message.msg}} {{message.user.email}}
-            </li>  
-          </ul>
-      </div>
-    </div>
+    <div class= "col-md-4">
+    <div ng-hide="main.switch" class="panel panel-default">
+          <div class="panel-heading">Login</div>
+          <div class="panel-body">
+              <form ng-submit="main.login()">
+                  <div class="form-group">
+                      <label>Username</label>
+                      <input type="email" class="form-control" ng-model="login.user.email">
+                  </div>
+                  <div class="form-group">
+                      <label>Password</label>
+                      <input type="password" class="form-control" ng-model="login.user.pwd">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+              </form>
 
+                  <br>
+                  <br>
+                  Not a member? <button ng-click="main.Switch()"> Register </button>
+          </div>
+    </div>
+    <div ng-hide="!main.switch" class="panel panel-default">
+            <div class="panel-heading">Register</div>
+            <div class="panel-body">
+                <form name="reg" ng-submit="main.register()">
+                    <div class="form-group">
+                        <label>Email adress</label>
+                        <input type="email" class="form-control" ng-model="main.user.email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="pwd" ng-model="main.user.pwd">
+                    </div>
+                    <div class="form-group">
+                        <label>Password Confirm</label>
+                        <input type="password" class="form-control" compare-to="main.user.pwd" name="pwdConfirm" ng-model="pwdConfirm">
+                    </div>
+                    <div class="form-group">
+                        <label for="levels"> User Privilege Level </label>
+                        <select name="levels">
+                           <option ng-repeat="level in main.levels" value="{{level}}" ng-model="main.user.group"> {{level}} </option>
+                        </select>
+                    </div>
+                    <span ng-show="reg.pwdConfirm.$dirty && reg.pwdConfirm.$invalid">Passwords do not match</span>
+                    <button ng-disabled="reg.pwdConfirm.$invalid || reg.pwd.length" type="submit" class="btn btn-default">Submit</button>
+              </form>
+              
+                    <br>
+                  <br>
+                  Already a Member?<button ng-click="main.Switch()"> Login </button>
+            </div>
+        </div>
 </div>

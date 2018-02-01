@@ -30,6 +30,12 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
         templateUrl: 'app/labs/labs.html',
         controller: 'LabsController',
         controllerAs: 'labs'
+    })
+    .state('Admin', {
+        url: '/admin',
+        templateUrl: 'app/admin/admin.html',
+        controller: 'AdminController',
+        controllerAs: 'admin'
     });
 
 
