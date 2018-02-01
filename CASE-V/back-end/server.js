@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var PythonShell = require('python-shell');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
+var auth = require('./controllers/auth');
 /*
 app.post('/app/message', function(req, res){
     console.log(req.body);
@@ -28,6 +28,9 @@ app.use(function(req, res, next)
 })
 app.use(bodyParser.json());
 
+
+app.post('/auth/register', auth.register);
+app.post('/auth/login', auth.login);
 
 app.get('/api/levels', function(req, res)
 {
