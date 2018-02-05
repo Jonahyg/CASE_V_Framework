@@ -34,8 +34,9 @@ export class MainController {
         //vm == view model
         var vm = this;
         this.user.verified = false;
-        this.$auth.signup(this.user).then(function(token){
-            vm.$auth.setToken(token);
+        this.$auth.signup(this.user).then(function(result){
+            console.log(result);
+           // vm.$auth.setToken(token);
         });
 
     }
