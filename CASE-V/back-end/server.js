@@ -11,6 +11,7 @@ app.post('/app/message', function(req, res){
     res.status(200);
 })
 */
+////////////////////Script Pre////////////////////////////////////////////////
 var options = {};
 function setOptions(arguements)
 {
@@ -20,6 +21,11 @@ function setOptions(arguements)
 		pythonOptions: ['-u']
 	};
 }
+
+
+
+
+///////////////////////////////Middleware///////////////////////////////////
 app.use(function(req, res, next)
 {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -29,9 +35,18 @@ app.use(function(req, res, next)
 app.use(bodyParser.json());
 
 
+
+
+///////////////////////////Authentication//////////////////////////////////////
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
 
+
+
+
+
+
+///////////////////////////Openstack API////////////////////////////////////////
 app.get('/api/levels', function(req, res)
 {
 	var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
@@ -82,8 +97,8 @@ app.post('/api/show', function(req, res)
 	})
 	shell.end();
 })
-app.post('')
 
+////////////////////////Connect to database/////////////////////////////////
 mongoose.connect("mongodb://localhost:27017/test", function(err,db){
     if(!err){
         console.log("we are connected to mongo");
@@ -92,10 +107,10 @@ mongoose.connect("mongodb://localhost:27017/test", function(err,db){
     }
     else
     {
-    	//console.log(err);
+    	console.log(err);
     }
 })
-
+///////////////////////Start Server////////////////////////////////////////////
 var server = app.listen(5000, function(){
     console.log('listening on port ', server.address().port);
 })

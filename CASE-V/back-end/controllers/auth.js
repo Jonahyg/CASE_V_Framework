@@ -8,7 +8,9 @@ module.exports = {
 	User.findOne({email: req.body.email}, function(err,existingUser){
 
 		if(existingUser)
+		{
 			return res.status(409).send({message: 'Email is already registered'});
+		}
 
 		var user = new User(req.body);
 
