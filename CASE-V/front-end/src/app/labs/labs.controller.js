@@ -1,6 +1,6 @@
 export class LabsController {
     constructor ($scope, $http, $sce, API_URL) {
-    //'ngInject';
+    'ngInject';
     this.$http = $http;
     this.$scope = $scope;
     this.$sce = $sce;

@@ -44,8 +44,8 @@
                     </div>
                     <div class="form-group">
                         <label for="levels"> User Privilege Level </label>
-                        <select name="levels">
-                           <option ng-repeat="level in main.levels" value="{{level}}" ng-model="main.user.group"> {{level}} </option>
+                        <select name="levels" ng-model="main.user.group">
+                           <option ng-repeat="level in main.levels" value="{{level}}"> {{level}} </option>
                         </select>
                     </div>
                     <span ng-show="reg.pwdConfirm.$dirty && reg.pwdConfirm.$invalid">Passwords do not match</span>
