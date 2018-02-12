@@ -3,6 +3,10 @@ export class AdminController {
     'ngInject';
 
     this.$http = $http;
+    this.tabs = ['New User Requests', 'User Privileges'];
+    
+
+
   }  
   
 }
