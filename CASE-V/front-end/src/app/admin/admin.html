@@ -2,9 +2,31 @@
   
   <div class="col-sm-2">
 
-   <button style="width: 100%;" class="btn btn-info" ng-repeat="tab in admin.tabs"> {{tab}} </button>
+   <button style="width: 100%;" class="btn btn-info" ng-repeat="tab in admin.tabs" ng-click="admin.switchTab(tab.id)"> {{tab.Name}} </button>
 
    <br>
 
   </div>
+
+  <div class="col-sm-8">
+  	<!-- New User Requests -->
+  	<div ng-show="admin.checkTab(1)">
+  		HELLO
+  	</div>
+
+
+  	<!-- User Privileges -->
+  	<div ng-show="admin.checkTab(2)">
+  		<div ng-repeat="level in admin.levels track by $index">
+  			<input type="text" ng-model="admin.levels[$index]"></input> <button ng-show="admin.levels.length > 1" type="button" ng-click="admin.deleteLevel($index)" class="delete"> X </button>
+  		</div>
+
+
+
+  		<button type="button" ng-click="admin.addLevel()">Add User Level </button>
+  		<button type="button" ng-click="admin.savePrivileges()">Save Privileges </button>
+  	</div>
+  	</div>
+  </div>
+
 </div>

@@ -4,10 +4,8 @@ import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
-import { LoginController } from './login/login.controller';
 import { LabsController } from './labs/labs.controller';
 import { ProjectsController } from './projects/projects.controller';
-import { RegisterController } from './register/register.controller';
 import { AuthController } from './auth/auth.controller';
 import { NavbarController } from './components/navbar/navbar.controller';
 import { AdminController } from './admin/admin.controller';
@@ -18,7 +16,7 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 
 angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer', 'angularModalService'])
-  .constant('API_URL', 'http://10.180.6.228:5000')
+  .constant('API_URL', 'http://localhost:5000')
   .constant('malarkey', malarkey)
   .constant('moment', moment)
   .config(config)
@@ -27,10 +25,8 @@ angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer', 
   .service('githubContributor', GithubContributorService)
   .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
-  .controller('LoginController', LoginController)
   .controller('LabsController', LabsController)
   .controller('ProjectsController', ProjectsController)
-  .controller('RegisterController', RegisterController)
   .controller('AuthController', AuthController) 
   .controller('AdminController', AdminController) 
   .controller('NavbarController', NavbarController)
