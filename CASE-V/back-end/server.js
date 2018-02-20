@@ -40,13 +40,11 @@ app.use(bodyParser.json());
 ///////////////////////////Authentication//////////////////////////////////////
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
+app.get('/api/verify', auth.getUnverifiedUsers);
 
 
 
-
-
-
-///////////////////////////Openstack API////////////////////////////////////////
+//////////////////////////User Privileges//////////////////////////////////////////
 app.get('/api/levels', function(req, res)
 {
 	var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
@@ -64,6 +62,8 @@ app.post('/api/Privileges', function(req, res)
 	fs.writeFile('privileges.json', json, 'utf8');
 	res.send("Success");
 })
+
+///////////////////////////Openstack API////////////////////////////////////////
 app.post('/api/images', function(req, res)
 {
 	setOptions(req.body.test);

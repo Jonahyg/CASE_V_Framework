@@ -43,6 +43,13 @@ module.exports = {
                 message: 'Invalid email and/or password'
             });
         });
+    },
+    getUnverifiedUsers: function(req, res)
+    {
+    	User.find({verified: false}, function(err, users)
+		{
+			res.send(users);
+		});
     }
 }
 
