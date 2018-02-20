@@ -52,6 +52,18 @@ app.get('/api/levels', function(req, res)
 	var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
 	res.send(privileges["Levels"]);
 })
+app.get('/api/privileges', function(req, res)
+{
+	var privileges = JSON.parse(fs.readFileSync('privileges.json', 'utf8'));
+	res.send(privileges);
+})
+app.post('/api/Privileges', function(req, res)
+{
+	console.log(req.body.privileges);
+	var json = JSON.stringify(req.body.privileges, null, 4);
+	fs.writeFile('privileges.json', json, 'utf8');
+	res.send("Success");
+})
 app.post('/api/images', function(req, res)
 {
 	setOptions(req.body.test);

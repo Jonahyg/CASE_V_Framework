@@ -1,6 +1,10 @@
 {
-	"Levels": ["Admin", "Professor", "Student"],
-	"Admin": [],
-	"Professor": [],
-	"Student": []
+    "Levels": [
+        "Professor",
+        "Admin",
+        "Student"
+    ],
+    "Professor": [],
+    "Admin": [],
+    "Student": []
 }
