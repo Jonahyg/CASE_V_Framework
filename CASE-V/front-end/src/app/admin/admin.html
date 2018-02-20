@@ -11,7 +11,9 @@
   <div class="col-sm-8">
   	<!-- New User Requests -->
   	<div ng-show="admin.checkTab(1)">
-  		HELLO
+  		<div ng-repeat="user in admin.users"> 
+  			{{user.email}}
+  		</div>
   	</div>
 
 

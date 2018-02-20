@@ -10,7 +10,9 @@ export class AdminController {
 	this.$scope.currentTab = 1;    
 	this.privileges = null;
 	this.levels = null;
+	this.users = null;
 	this.getPrivileges();
+	this.getUsers();
 
   }
   switchTab(tab)
@@ -24,6 +26,7 @@ export class AdminController {
   	else
   		return false;
   }
+  //////////////////////User Privileges/////////////////////////////////////////////
   getPrivileges()
   {
   	var rr = this;
@@ -54,6 +57,16 @@ export class AdminController {
   	this.$http.post(this.API_URL + '/api/Privileges', {privileges : obj}).then(function(result)
   	{
 
+  	})
+
+  }
+  ////////////////////////////User Verification////////////////////////////////////////////////
+  getUsers()
+  {
+  	var rr = this;
+  	this.$http.get(this.API_URL + '/api/verify').then(function(result)
+  	{
+  		rr.users = result.data;
   	})
   }
 }
