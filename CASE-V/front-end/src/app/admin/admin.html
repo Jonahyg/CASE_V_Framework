@@ -1,28 +1,39 @@
 <div class="container">
   
   <div class="col-sm-2">
+  	<div ng-repeat="tab in admin.tabs">
+	   <button style="width: 100%;" class="btn btn-info" ng-click="admin.switchTab(tab.id)"> {{tab.Name}} </button>
 
-   <button style="width: 100%;" class="btn btn-info" ng-repeat="tab in admin.tabs" ng-click="admin.switchTab(tab.id)"> {{tab.Name}} </button>
-
-   <br>
-
+	   <br>
+	   <br>
+	</div>
   </div>
 
   <div class="col-sm-8">
   	<!-- New User Requests -->
   	<div ng-show="admin.checkTab(1)">
-  		<div ng-repeat="user in admin.users"> 
-  			{{user.email}}
-  		</div>
+  		<div class="panel panel-default" ng-repeat="user in admin.users"> 
+
+	      <div class="panel-heading"> Unverified User </div>
+	      <div class="panel-body">
+  			User: {{user.email}}
+  			<br>
+  			Requested privileges: {{user.group}}<button class="btn btn-default pull-right">  Verify </button>
+	  		</div>
+	  	</div>
+  		
   	</div>
 
 
   	<!-- User Privileges -->
   	<div ng-show="admin.checkTab(2)">
-  		<div ng-repeat="level in admin.levels track by $index">
+  		<div class="panel panel-default" ng-repeat="level in admin.levels track by $index">
+
+	      <div class="panel-heading"> User level </div>
+	      <div class="panel-body">
   			<input type="text" ng-model="admin.levels[$index]"></input> <button ng-show="admin.levels.length > 1" type="button" ng-click="admin.deleteLevel($index)" class="delete"> X </button>
   		</div>
-
+  		</div>
 
 
   		<button type="button" ng-click="admin.addLevel()">Add User Level </button>

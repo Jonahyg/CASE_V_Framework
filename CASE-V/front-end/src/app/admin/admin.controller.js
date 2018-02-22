@@ -69,4 +69,8 @@ export class AdminController {
   		rr.users = result.data;
   	})
   }
+  verifyUser()
+  {
+  	
+  }
 }

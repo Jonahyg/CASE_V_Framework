@@ -47,7 +47,7 @@ export class MainController {
             vm.$auth.setToken(token);
         });
 
-    }
+    }     
 }
 
  
