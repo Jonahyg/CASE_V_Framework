@@ -2,9 +2,11 @@
     "Levels": [
         "Professor",
         "Admin",
-        "Student"
+        "Student",
+        "Professional"
     ],
     "Professor": [],
     "Admin": [],
-    "Student": []
+    "Student": [],
+    "Professional": []
 }
