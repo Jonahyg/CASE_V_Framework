@@ -5,5 +5,7 @@ module.exports = mongoose.model('User',{
 	pwd: String,
 	verified: Boolean,
 	group: String,
-
+	username:String,
+	projectname:String,
+	quotas:Object
 });

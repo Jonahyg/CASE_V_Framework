@@ -1,0 +1,7 @@
+{
+	"Level 1": [{"VCPUs": 1}, {"Instances": 1}, {"Volumes": 1}, {"RAM (MB)": 1024}, {"Networks": 1}],
+	"Level 2": [{"VCPUs": 2}, {"Instances": 3}, {"Volumes": 2}, {"RAM (MB)": 2048}, {"Networks": 2}],
+	"Level 3": [{"VCPUs": 3}, {"Instances": 7}, {"Volumes": 3}, {"RAM (MB)": 3072}, {"Networks": 3}],
+	"Level 4": [{"VCPUs": 4}, {"Instances": 10}, {"Volumes": 4}, {"RAM (MB)": 4096}, {"Networks": 4}],
+	"Level 5": [{"VCPUs": 5}, {"Instances": 15}, {"Volumes": 5}, {"RAM (MB)": 5120}, {"Networks": 5}]
+}

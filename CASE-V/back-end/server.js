@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
+var User = require('./models/User');
 var mongoose = require('mongoose');
 var PythonShell = require('python-shell');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var auth = require('./controllers/auth');
+var jwt = require('jwt-simple');
+var moment = require('moment');
 /*
 app.post('/app/message', function(req, res){
     console.log(req.body);
@@ -34,14 +37,30 @@ app.use(function(req, res, next)
 })
 app.use(bodyParser.json());
 
+function checkAuthenticated(req, res, next)
+{
+	if(!req.header('Authorization'))
+	{
+		return res.status(401).send({message: 'Please make sure request has an Authorization Header'});
+	}
+	var token = req.header('Authorization').split(' ')[1];
+	var payload = jwt.decode(token, 'secret');
 
+	if(payload.exp <= moment().unix())
+	{
+		return res.status(401).send({message: 'Token has expired'});
+	}
+	req.user = payload.sub;
+	console.log(req.user);
+	next();
+}
 
 
 ///////////////////////////Authentication//////////////////////////////////////
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
-app.get('/api/verify', auth.getUnverifiedUsers);
-
+app.get('/api/unverified', auth.getUnverifiedUsers);
+app.post('/api/verify', auth.verifyUser);
 
 
 //////////////////////////User Privileges//////////////////////////////////////////
@@ -62,10 +81,28 @@ app.post('/api/Privileges', function(req, res)
 	fs.writeFile('privileges.json', json, 'utf8');
 	res.send("Success");
 })
-
+app.get('/api/quotas', function(req, res)
+{
+	var quotas = JSON.parse(fs.readFileSync('quotas.json', 'utf8'));
+	res.send(quotas);
+})
+app.post('/api/username', function(req, res)
+{
+	console.log(req.body.test);
+	User.findOne({username: req.body.test}, function(err, user)
+	{
+		if(!user)
+		{
+			res.send(false);
+		}
+		else
+			res.send(true);
+	})
+})
 ///////////////////////////Openstack API////////////////////////////////////////
 app.post('/api/images', function(req, res)
 {
+	//req.body.test.unshift(JSON.stringify(req.user))
 	setOptions(req.body.test);
 	var shell = new PythonShell("list_images.py", options);
 	shell.on('message', function (message)
@@ -75,7 +112,26 @@ app.post('/api/images', function(req, res)
 	})
 	shell.end();
 })
-
+app.post('/api/test', checkAuthenticated, function(req, res)
+{
+	console.log(req.body.test);
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+		console.log(user);
+		console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("test.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
+		})
+	
+})
 app.post('/api/instance', function(req, res)
 {
 	setOptions(req.body.test);

@@ -5,6 +5,8 @@ import subprocess
 import sys
 import json
 
+project_name = sys.argv[1]
+#quotas = json.loads(sys.argv[2])
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	username=env['OS_USERNAME'],
 	password=env['OS_PASSWORD'],
@@ -13,10 +15,8 @@ conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	project_domain_id='default')
 
 
-j = json.loads(sys.argv[1])
-print j['email']
-#glance_endpoint = keystone.service_catalog.url_for(service_type='image')
-#glance = glclient.Client(glance_endpoint, token=keystone.auth_token)
-#images = glance.images.list()
-#print images
-#print list(images)
+#project = conn.identity.create_project(name=project_name, domain_id="default", enabled=True, is_domain=False)
+#print conn.current_project
+#conn.compute.set_compute_quotas(name=project_name, ram=150);
+
+print dir(conn)

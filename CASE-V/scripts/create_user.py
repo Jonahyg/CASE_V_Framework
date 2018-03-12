@@ -3,7 +3,10 @@ from openstack import connection
 import openstack
 import subprocess
 import sys
-import json
+
+user_name = sys.argv[1]
+password = sys.argv[2]
+project = sys.argv[3] 
 
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	username=env['OS_USERNAME'],
@@ -12,11 +15,6 @@ conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	user_domain_id='default',
 	project_domain_id='default')
 
+new_user = conn.identity.create_user(name=user_name, default_project_id=project, domain_id="default", password=password)
 
-j = json.loads(sys.argv[1])
-print j['email']
-#glance_endpoint = keystone.service_catalog.url_for(service_type='image')
-#glance = glclient.Client(glance_endpoint, token=keystone.auth_token)
-#images = glance.images.list()
-#print images
-#print list(images)
+print "GG"

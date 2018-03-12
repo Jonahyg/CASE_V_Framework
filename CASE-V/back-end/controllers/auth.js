@@ -26,18 +26,28 @@ module.exports = {
 	},
     login: function(req, res)
     {
+    	console.log(req.body.email);
         User.findOne({
             email: req.body.email
         }, function (err, user) {
-
         if(!user)
             return res.status(401).send({
                 message: 'Email or Password invalid'
             });
         if(req.body.pwd == user.pwd)
-            res.send({
-                token: createToken(user)
+        {
+        	console.log(user.verified);
+        	if(user.verified == true)
+        	{
+	            res.send({
+	                token: createToken(user)
+	            });
+	        }
+	        else
+	        	return res.status(401).send({
+                message: 'User not yet verified'
             });
+        }
         else
             return res.status(401).send({
                 message: 'Invalid email and/or password'
@@ -50,6 +60,13 @@ module.exports = {
 		{
 			res.send(users);
 		});
+    },
+    verifyUser: function(req, res)
+    {
+    	User.findOneAndUpdate({email: req.body.email}, {verified: true}, function(err, user)
+    	{
+    		res.send("Success");
+    	});
     }
 }
 

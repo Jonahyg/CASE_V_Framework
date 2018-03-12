@@ -3,20 +3,22 @@
 <div class="container">
   <div class="col-md-8">
         News
+        <button ng-click="main.test()" class="btn btn-default"> Test </button>
     </div>
 
     <div class= "col-md-4">
+    <!--################################Login###########################-->
     <div ng-hide="main.switch" class="panel panel-default">
           <div class="panel-heading">Login</div>
           <div class="panel-body">
               <form ng-submit="main.login()">
                   <div class="form-group">
                       <label>Username</label>
-                      <input type="email" class="form-control" ng-model="login.user.email">
+                      <input type="email" class="form-control" ng-model="main.login.user.email">
                   </div>
                   <div class="form-group">
                       <label>Password</label>
-                      <input type="password" class="form-control" ng-model="login.user.pwd">
+                      <input type="password" class="form-control" ng-model="main.login.user.pwd">
                   </div>
                   <button type="submit" class="btn btn-default">Submit</button>
               </form>
@@ -26,6 +28,7 @@
                   Not a member? <button ng-click="main.Switch()"> Register </button>
           </div>
     </div>
+    <!--################################Register###########################-->
     <div ng-hide="!main.switch" class="panel panel-default">
             <div class="panel-heading">Register</div>
             <div class="panel-body">
@@ -33,6 +36,10 @@
                     <div class="form-group">
                         <label>Email adress</label>
                         <input type="email" class="form-control" ng-model="main.user.email">
+                    </div>
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" ng-model="main.user.username" ng-change="main.check_user(main.user.username)">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
@@ -45,11 +52,24 @@
                     <div class="form-group">
                         <label for="levels"> User Privilege Level </label>
                         <select name="levels" ng-model="main.user.group">
-                           <option ng-repeat="level in main.levels" value="{{level}}"> {{level}} </option>
+                           <option ng-repeat="level in main.levels" value="{{level}}">  
+                            {{level}} 
+                           </option>
                         </select>
                     </div>
-                    <span ng-show="reg.pwdConfirm.$dirty && reg.pwdConfirm.$invalid">Passwords do not match</span>
-                    <button ng-disabled="reg.pwdConfirm.$invalid || reg.pwd.length" type="submit" class="btn btn-default">Submit</button>
+                    <div class="form-group">
+                      <label for="quotas"> Cloud Storage Request </label>
+                      <div ng-repeat="quota in main.quotas">
+                      <input type="radio" name="quotas" ng-model="main.user.quotas" value="{{quota}}">
+                          <div style="display:inline" ng-repeat="element in quota"> 
+                            <p style="display:inline" ng-repeat="(innerkey, innervalue) in element"> {{innerkey}} : {{innervalue}}. </p>
+                          </div>
+
+                       </div>
+                    </div>
+                    <span ng-show="reg.pwdConfirm.$dirty && reg.pwdConfirm.$invalid">Passwords do not match</span> <br>
+                    <span ng-show="main.userexists">User Name Already Exists</span>
+                    <button ng-disabled="reg.pwdConfirm.$invalid || reg.pwd.length || main.userexists" type="submit" class="btn btn-default">Submit</button>
               </form>
               
                     <br>

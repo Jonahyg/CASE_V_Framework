@@ -16,7 +16,7 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 
 angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer', 'angularModalService'])
-  .constant('API_URL', 'http://localhost:5000')
+  .constant('API_URL', 'http://10.20.3.20:5000')
   .constant('malarkey', malarkey)
   .constant('moment', moment)
   .config(config)
