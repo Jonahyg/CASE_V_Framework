@@ -69,13 +69,17 @@ export class AdminController {
   		rr.users = result.data;
   	})
   }
-  verifyUser(email)
+  verifyUser(user)
   {
   	var rr = this;
-  	this.$http.post(this.API_URL + '/api/verify', {email: email}).then(function(result)
+
+  	this.$http.post(this.API_URL + '/api/assign', {user: user}).then(function(result)
+  	{
+  		
+  	})
+  	this.$http.post(this.API_URL + '/api/verify', {user: user}).then(function(result)
   	{
   		rr.getUsers();
-  	}) 
-
+  	})
   }
 }

@@ -61,6 +61,17 @@ app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
 app.get('/api/unverified', auth.getUnverifiedUsers);
 app.post('/api/verify', auth.verifyUser);
+app.post('/api/assign', function(req, res)
+{
+	setOptions(JSON.stringify(req.body.user));
+	console.log(JSON.stringify(req.body.user));
+	var shell = new PythonShell("create_project.py", options);
+	shell.on('message', function (message)
+	{
+		console.log(message);
+	})
+	shell.end();
+})
 
 
 //////////////////////////User Privileges//////////////////////////////////////////
@@ -100,17 +111,24 @@ app.post('/api/username', function(req, res)
 	})
 })
 ///////////////////////////Openstack API////////////////////////////////////////
-app.post('/api/images', function(req, res)
+app.post('/api/images', checkAuthenticated, function(req, res)
 {
 	//req.body.test.unshift(JSON.stringify(req.user))
-	setOptions(req.body.test);
-	var shell = new PythonShell("list_images.py", options);
-	shell.on('message', function (message)
+	User.findById(req.user, function(err, user)
 	{
-		console.log(message)
-		res.send(message);
+		arr = req.body.test;
+		console.log(user);
+		console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("list_images.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
 	})
-	shell.end();
 })
 app.post('/api/test', checkAuthenticated, function(req, res)
 {
@@ -132,38 +150,59 @@ app.post('/api/test', checkAuthenticated, function(req, res)
 		})
 	
 })
-app.post('/api/instance', function(req, res)
+app.post('/api/instance', checkAuthenticated, function(req, res)
 {
-	setOptions(req.body.test);
-	var shell = new PythonShell("create_instance.py", options);
-	shell.on('message', function (message)
+	User.findById(req.user, function(err, user)
 	{
-		console.log(message)
-		res.send(message);
+		arr = req.body.test;
+		console.log(user);
+		console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("create_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
 	})
-	shell.end();
 })
-app.post('/api/instances', function(req, res)
+app.post('/api/instances',checkAuthenticated, function(req, res)
 {
-	setOptions(req.body.test);
-	var shell = new PythonShell("list_instances.py", options);
-	shell.on('message', function (message)
+	User.findById(req.user, function(err, user)
 	{
-		console.log(message)
-		res.send(message);
+		arr = req.body.test;
+		console.log(user);
+		console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("list_instances.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
 	})
-	shell.end();
 })
-app.post('/api/show', function(req, res)
+app.post('/api/show', checkAuthenticated, function(req, res)
 {
-	setOptions(req.body.test);
-	var shell = new PythonShell("show_instance.py", options);
-	shell.on('message', function (message)
+	User.findById(req.user, function(err, user)
 	{
-		console.log(message);
-		res.send(message);
+		arr = req.body.test;
+		console.log(user);
+		console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("show_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message);
+			res.send(message);
+		})
+		shell.end();
 	})
-	shell.end();
 })
 
 ////////////////////////Connect to database/////////////////////////////////

@@ -61,8 +61,8 @@
                       <label for="quotas"> Cloud Storage Request </label>
                       <div ng-repeat="quota in main.quotas">
                       <input type="radio" name="quotas" ng-model="main.user.quotas" value="{{quota}}">
-                          <div style="display:inline" ng-repeat="element in quota"> 
-                            <p style="display:inline" ng-repeat="(innerkey, innervalue) in element"> {{innerkey}} : {{innervalue}}. </p>
+                          <div style="display:inline" > 
+                             {{quota}}
                           </div>
 
                        </div>

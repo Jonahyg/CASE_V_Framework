@@ -44,7 +44,7 @@ export class MainController {
     register() {
         //vm == view model
         var vm = this;
-        this.user.projectname = this.user.username + "project"
+        this.user.projectname = this.user.username + "_Project"
         this.user.verified = false;
         this.$auth.signup(this.user).then(function(token){
             console.log(token);

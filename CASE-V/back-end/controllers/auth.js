@@ -63,7 +63,7 @@ module.exports = {
     },
     verifyUser: function(req, res)
     {
-    	User.findOneAndUpdate({email: req.body.email}, {verified: true}, function(err, user)
+    	User.findOneAndUpdate({email: req.body.user.email}, {verified: true}, function(err, user)
     	{
     		res.send("Success");
     	});

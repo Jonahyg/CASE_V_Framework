@@ -5,8 +5,8 @@ export class LabsController {
     this.$scope = $scope;
     this.$sce = $sce;
     this.API_URL = API_URL;
-    //this.get_images()
-    //this.get_instances()
+    this.get_images()
+    this.get_instances()
     this.$scope.data = {
 	model:null,
 	stri: "",
@@ -20,7 +20,7 @@ export class LabsController {
 	{
 		var rr = this;
 		var items = 0;
-		this.$http.post(this.API_URL + '/api/images', {test: "test2"}).then(function(result)
+		this.$http.post(this.API_URL + '/api/images', {test: ["test2"]}).then(function(result)
 		{
 			rr.$scope.data.images = [];
 			//console.log(result);
@@ -52,7 +52,7 @@ export class LabsController {
 	{
 		var rr = this;
 		var items = 0;
-		this.$http.post(this.API_URL + '/api/instances', {test: "test2"}).then(function(result)
+		this.$http.post(this.API_URL + '/api/instances', {test: ["test2"]}).then(function(result)
 		{
 			console.log(result.data.length);
 			if(result.data.length == 0)
@@ -78,7 +78,7 @@ export class LabsController {
 	get_url(vm_name)
 	{
 		var rr = this;
-		this.$http.post(this.API_URL + '/api/show', {test: vm_name}).then(function(result)
+		this.$http.post(this.API_URL + '/api/show', {test: [vm_name]}).then(function(result)
 		{
 			console.log(result.data);
 			var url = result.data;
