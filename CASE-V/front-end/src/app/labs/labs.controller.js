@@ -5,19 +5,50 @@ export class LabsController {
     this.$scope = $scope;
     this.$sce = $sce;
     this.API_URL = API_URL;
-    this.get_images()
-    this.get_instances()
+    this.get_images();
+    this.get_instances();
+    this.get_networks();
+    this.wait = false;
     this.$scope.data = {
 	model:null,
 	stri: "",
 	images: [],
 	instances: [],
+	networks: [],
 	iframe: {height: "0", width: "0", src: ""},
-	vm_name: ""
+	vm_name: "",
+	network_name: ""
     };
+	}
+	get_networks()
+	{
+		this.wait = true;
+		var rr = this;
+		var items = 0;
+		this.$http.post(this.API_URL + '/api/networks', {test: ["test2"]}).then(function(result)
+		{
+			rr.$scope.data.networks = [];
+			//console.log(result);
+			items = result.data.split(" ")
+			for(var i = 0; i < items.length; i++)
+			{
+				var entry = new Object();
+				entry.id = i;
+				entry.name = items[i]
+				rr.$scope.data.networks.push(entry)
+			}
+		rr.wait = false;
+		})
+	}
+	clear_fields()
+	{
+		this.$scope.data.model = null;
+		this.$scope.data.vm_name = null;
+		this.$scope.data.network_name = null;
 	}
 	get_images()
 	{
+    	this.wait = true;
 		var rr = this;
 		var items = 0;
 		this.$http.post(this.API_URL + '/api/images', {test: ["test2"]}).then(function(result)
@@ -32,24 +63,30 @@ export class LabsController {
 				entry.name = items[i]
 				rr.$scope.data.images.push(entry)
 			}
+		rr.wait = false;
 		})
 	}
 	launch_instance()
 	{
+    	this.wait = true;
 		var rr = this;
 		if(this.$scope.data.model != null)
 		{
-			this.$http.post(this.API_URL + '/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name]}).then(function(result)
+			this.$http.post(this.API_URL + '/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name, this.$scope.data.network_name]}).then(function(result)
 			{
 				if(result.data == "ACTIVE")
 				{
 					rr.get_instances()
 				}
+
+				rr.wait = false;
+				rr.clear_fields();
 			})
 		}
 	}
 	get_instances()
 	{
+    	this.wait = true;
 		var rr = this;
 		var items = 0;
 		this.$http.post(this.API_URL + '/api/instances', {test: ["test2"]}).then(function(result)
@@ -73,10 +110,12 @@ export class LabsController {
 					rr.$scope.data.instances.push(entry)
 				}
 			}
+		rr.wait = false;
 		})
 	}
 	get_url(vm_name)
 	{
+    	this.wait = true;
 		var rr = this;
 		this.$http.post(this.API_URL + '/api/show', {test: [vm_name]}).then(function(result)
 		{
@@ -85,6 +124,7 @@ export class LabsController {
 			rr.$scope.data.iframe.url = rr.$sce.trustAsResourceUrl(url);
 			rr.$scope.data.iframe.width = "1000";
 			rr.$scope.data.iframe.height = "1000";
+			rr.wait = false;
 		})
 	}
 }

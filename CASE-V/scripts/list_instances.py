@@ -11,8 +11,8 @@ user_name = user["username"]
 project_name = user["projectname"]
 pwd = user["pwd"]
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
-	username=user_name,
-	password=pwd,
+	username=env['OS_USERNAME'],
+	password=env['OS_PASSWORD'],
 	project_name=project_name,
 	user_domain_id='default',
 	project_domain_id='default')

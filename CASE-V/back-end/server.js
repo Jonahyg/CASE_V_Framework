@@ -130,9 +130,9 @@ app.post('/api/images', checkAuthenticated, function(req, res)
 		shell.end();
 	})
 })
-app.post('/api/test', checkAuthenticated, function(req, res)
+app.post('/api/networks', checkAuthenticated, function(req, res)
 {
-	console.log(req.body.test);
+	//req.body.test.unshift(JSON.stringify(req.user))
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
@@ -140,15 +140,14 @@ app.post('/api/test', checkAuthenticated, function(req, res)
 		console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
-		var shell = new PythonShell("test.py", options);
+		var shell = new PythonShell("list_networks.py", options);
 		shell.on('message', function (message)
 		{
 			console.log(message)
 			res.send(message);
 		})
 		shell.end();
-		})
-	
+	})
 })
 app.post('/api/instance', checkAuthenticated, function(req, res)
 {

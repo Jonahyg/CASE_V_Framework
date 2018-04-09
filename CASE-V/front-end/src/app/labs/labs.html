@@ -1,24 +1,41 @@
 <div class="container">
-	<label for="Images"> Select Image you wish to Create instance of: </label>
-	<select name="Images" ng-model="data.model">
-		<option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
-	</select>
-	<br>
-	<label for="Name"> Name of Instance </label>
-	<input name="Name" class="form-control" ng-model="data.vm_name">
-	<button ng-disabled="data.model == null || data.vm_name == ''" ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
-	<br>
-	<br>
-	<br>
-	<hr>
-	<h1> Instances </h1>
-	{{data.stri}}
-	<ul class="list-group">
-        <li class="list-group-item" ng-repeat="instance in data.instances">
-                {{instance.name}}
-                <button ng-click="labs.get_url(instance.name)" class="btn btn-default"> View </button>
-        </li>  
-    </ul>
+	<div class="col-md-8">
+		<label for="Images"> Select Image you wish to Create instance of: </label>
+		<select name="Images" ng-model="data.model">
+			<option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
+		</select>
+		<br>
+
+		<label for="Networks"> Select Network you wish to attach instance to: </label>
+		<select name="Networks" ng-model="data.network_name">
+			<option ng-repeat="network in data.networks" value="{{network.name}}"> {{network.name}} </option>
+		</select>
+		<br>
+
+		<label for="Name"> Name of Instance </label>
+		<input name="Name" class="form-control" ng-model="data.vm_name">
+		<button ng-disabled="data.model == null || data.vm_name == '' || labs.wait == true || data.network_name == '' " ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
+		<br>
+		<br>
+		<br>
+		<hr>
+		<h1> Instances </h1>
+		{{data.stri}}
+		<ul class="list-group">
+	        <li class="list-group-item" ng-repeat="instance in data.instances">
+	                {{instance.name}}
+	                <button ng-disabled="labs.wait == true" ng-click="labs.get_url(instance.name)" class="btn btn-default"> View </button>
+	        </li>  
+	    </ul>
+	</div>
+	<div class="col-sm-4">
+		Networks
+		<ul class="list-group">
+	        <li class="list-group-item" ng-repeat="network in data.networks">
+	                {{network.name}}
+	        </li>  
+	    </ul>
+	</div>
     <iframe height="{{data.iframe.height}}" width="{{data.iframe.width}}" ng-src="{{data.iframe.url}}">
         
     </iframe>

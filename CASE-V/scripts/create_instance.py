@@ -8,22 +8,19 @@ import json
 user = json.loads(sys.argv[1])
 image_name = sys.argv[2]
 instance_name = sys.argv[3]
-
+network_name = sys.argv[4]
 
 user = json.loads(sys.argv[1])
 user_name = user["username"]
 project_name = user["projectname"]
 pwd = user["pwd"]
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
-	username=user_name,
-	password=pwd,
+	username=env['OS_USERNAME'],
+	password=env['OS_PASSWORD'],
 	project_name=project_name,
 	user_domain_id='default',
 	project_domain_id='default')
 
-network_name = ""
-for network in conn.network.networks():
-	network_name = network.name
 
 image = conn.compute.find_image(image_name)
 flavor = conn.compute.find_flavor("m1.tiny")
