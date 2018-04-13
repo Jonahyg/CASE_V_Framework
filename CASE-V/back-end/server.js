@@ -51,12 +51,26 @@ function checkAuthenticated(req, res, next)
 		return res.status(401).send({message: 'Token has expired'});
 	}
 	req.user = payload.sub;
-	console.log(req.user);
+	//console.log(req.user);
 	next();
 }
 
 
 ///////////////////////////Authentication//////////////////////////////////////
+app.post('/auth/isAdmin', checkAuthenticated, function(req, res)
+{
+	User.findById(req.user, function(err, user)
+	{
+		console.log(user.group);
+		console.log("GG");
+		if(user.group == "Admin")
+		{
+			res.send(true);
+		}
+		else
+			res.send(false);
+	})
+})
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
 app.get('/api/unverified', auth.getUnverifiedUsers);
@@ -64,7 +78,7 @@ app.post('/api/verify', auth.verifyUser);
 app.post('/api/assign', function(req, res)
 {
 	setOptions(JSON.stringify(req.body.user));
-	console.log(JSON.stringify(req.body.user));
+	//console.log(JSON.stringify(req.body.user));
 	var shell = new PythonShell("create_project.py", options);
 	shell.on('message', function (message)
 	{
@@ -87,7 +101,7 @@ app.get('/api/privileges', function(req, res)
 })
 app.post('/api/Privileges', function(req, res)
 {
-	console.log(req.body.privileges);
+	//console.log(req.body.privileges);
 	var json = JSON.stringify(req.body.privileges, null, 4);
 	fs.writeFile('privileges.json', json, 'utf8');
 	res.send("Success");
@@ -99,7 +113,7 @@ app.get('/api/quotas', function(req, res)
 })
 app.post('/api/username', function(req, res)
 {
-	console.log(req.body.test);
+	//console.log(req.body.test);
 	User.findOne({username: req.body.test}, function(err, user)
 	{
 		if(!user)
@@ -117,8 +131,8 @@ app.post('/api/images', checkAuthenticated, function(req, res)
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
-		console.log(user);
-		console.log(JSON.stringify(user));
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("list_images.py", options);
@@ -136,8 +150,8 @@ app.post('/api/networks', checkAuthenticated, function(req, res)
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
-		console.log(user);
-		console.log(JSON.stringify(user));
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("list_networks.py", options);
@@ -149,13 +163,87 @@ app.post('/api/networks', checkAuthenticated, function(req, res)
 		shell.end();
 	})
 })
+app.post('/api/check', checkAuthenticated, function(req, res)
+{
+	//req.body.test.unshift(JSON.stringify(req.user))
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+		//console.log(arr);
+		//console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("check_server.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
+	})
+})
+app.post('/api/save', checkAuthenticated, function(req, res)
+{
+	//req.body.test.unshift(JSON.stringify(req.user))
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+		//console.log(arr);
+		//console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("save_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
+	})
+})
+app.post('/api/suspend', checkAuthenticated, function(req, res)
+{
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("suspend_instance.py", options);
+		shell.on('message', function (message)
+		{
+	//		console.log(message);
+			res.send(message);
+		})
+		shell.end();
+	})
+})
+app.post('/api/reboot', checkAuthenticated, function(req, res)
+{
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("reboot_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message);
+			res.send(message);
+		})
+		shell.end();
+	})
+})
 app.post('/api/instance', checkAuthenticated, function(req, res)
 {
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
-		console.log(user);
-		console.log(JSON.stringify(user));
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("create_instance.py", options);
@@ -172,14 +260,14 @@ app.post('/api/instances',checkAuthenticated, function(req, res)
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
-		console.log(user);
-		console.log(JSON.stringify(user));
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("list_instances.py", options);
 		shell.on('message', function (message)
 		{
-			console.log(message)
+	//		console.log(message)
 			res.send(message);
 		})
 		shell.end();
@@ -190,14 +278,14 @@ app.post('/api/show', checkAuthenticated, function(req, res)
 	User.findById(req.user, function(err, user)
 	{
 		arr = req.body.test;
-		console.log(user);
-		console.log(JSON.stringify(user));
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("show_instance.py", options);
 		shell.on('message', function (message)
 		{
-			console.log(message);
+	//		console.log(message);
 			res.send(message);
 		})
 		shell.end();

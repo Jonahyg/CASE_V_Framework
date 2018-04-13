@@ -13,4 +13,4 @@ conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	project_domain_id='default')
 
 for image in conn.compute.servers():
-	print image.networks
+	print image.id

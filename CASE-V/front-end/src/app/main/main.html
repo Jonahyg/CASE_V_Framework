@@ -3,10 +3,9 @@
 <div class="container">
   <div class="col-md-8">
         News
-        <button ng-click="main.test()" class="btn btn-default"> Test </button>
     </div>
 
-    <div class= "col-md-4">
+    <div ng-hide="main.isAuthenticated()" class= "col-md-4">
     <!--################################Login###########################-->
     <div ng-hide="main.switch" class="panel panel-default">
           <div class="panel-heading">Login</div>

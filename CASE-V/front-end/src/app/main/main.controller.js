@@ -1,8 +1,9 @@
 export class MainController {
-  constructor ($http, ModalService, $scope, $sce, API_URL, $auth) {
+  constructor ($http, ModalService, $scope, $sce, API_URL, $auth, $route) {
     'ngInject';
 
     this.$http = $http;
+    this.$route = $route;
     this.$scope = $scope;
     this.ModalService = ModalService;
     this.switch = false;
@@ -11,6 +12,7 @@ export class MainController {
     this.levels = null;
     this.quotas = null;
     this.$auth = $auth;
+    this.isAuthenticated = $auth.isAuthenticated;
     this.userexists = false;
     this.get_levels();
     this.get_quotas();
@@ -50,6 +52,7 @@ export class MainController {
             console.log(token);
            //vm.$auth.setToken(token);
         });
+        this.user = null;
 
     }
     login() {
@@ -59,7 +62,7 @@ export class MainController {
         this.$auth.login(this.login.user).then(function(token){
             vm.$auth.setToken(token);
         });
-
+        this.login.user = null;
     }
     test()
     {

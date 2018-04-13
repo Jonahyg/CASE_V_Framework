@@ -24,18 +24,27 @@
 		<ul class="list-group">
 	        <li class="list-group-item" ng-repeat="instance in data.instances">
 	                {{instance.name}}
-	                <button ng-disabled="labs.wait == true" ng-click="labs.get_url(instance.name)" class="btn btn-default"> View </button>
+	                <button ng-disabled="labs.wait == true || instance.status != 'ACTIVE'" ng-click="labs.get_url(instance.name)" class="btn btn-default"> View </button>
+
+	                <button ng-disabled="labs.wait == true || instance.status != 'ACTIVE'" ng-click="labs.reboot_instance(instance.name)" class="btn btn-default"> Reboot </button>
+
+	                <button ng-show="instance.status == 'ACTIVE'" ng-disabled="labs.wait == true" ng-click="labs.suspend_instance(instance.name)" class="btn btn-default"> Pause </button>
+
+	                <button ng-show="instance.status == 'SUSPENDED'" ng-disabled="labs.wait == true" ng-click="labs.suspend_instance(instance.name)" class="btn btn-default"> Resume </button>
+
+	                <button ng-disabled="labs.wait == true || instance.status != 'ACTIVE'" ng-click="labs.create_image(instance.name)" class="btn btn-default"> Create Image </button>
+	                <font color="green"> {{instance.status}}</font>
 	        </li>  
 	    </ul>
 	</div>
-	<div class="col-sm-4">
+	<!--<div class="col-sm-4">
 		Networks
 		<ul class="list-group">
 	        <li class="list-group-item" ng-repeat="network in data.networks">
 	                {{network.name}}
 	        </li>  
 	    </ul>
-	</div>
+	</div>-->
     <iframe height="{{data.iframe.height}}" width="{{data.iframe.width}}" ng-src="{{data.iframe.url}}">
         
     </iframe>

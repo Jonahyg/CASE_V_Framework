@@ -8,17 +8,18 @@ export class LabsController {
     this.get_images();
     this.get_instances();
     this.get_networks();
+    //this.get_status();
     this.wait = false;
     this.$scope.data = {
-	model:null,
-	stri: "",
-	images: [],
-	instances: [],
-	networks: [],
-	iframe: {height: "0", width: "0", src: ""},
-	vm_name: "",
-	network_name: ""
-    };
+		model:null,
+		stri: "",
+		images: [],
+		instances: [],
+		networks: [],
+		iframe: {height: "0", width: "0", src: ""},
+		vm_name: "",
+		network_name: ""
+	    };
 	}
 	get_networks()
 	{
@@ -84,6 +85,37 @@ export class LabsController {
 			})
 		}
 	}
+	reboot_instance(vm_name)
+	{
+		this.wait = true;
+		var rr = this;
+		this.$http.post(this.API_URL + '/api/reboot', {test: [vm_name]}).then(function(result)
+		{
+			rr.wait = false;
+			rr.get_instances();
+		})
+	}
+	suspend_instance(vm_name)
+	{
+		console.log("GG");
+		this.wait = true;
+		var rr = this;
+		this.$http.post(this.API_URL + '/api/suspend', {test: [vm_name]}).then(function(result)
+		{
+			console.log(result.data);
+			rr.wait = false;
+			rr.get_instances();
+		})
+	}
+	create_image(vm_name)
+	{
+		this.wait = true;
+		var rr = this;
+		this.$http.post(this.API_URL + '/api/suspend', {test: [vm_name]}).then(function(result)
+		{
+			rr.wait = false;
+		})
+	}
 	get_instances()
 	{
     	this.wait = true;
@@ -106,10 +138,12 @@ export class LabsController {
 				{
 					var entry = new Object();
 					entry.id = i;
-					entry.name = items[i]
-					rr.$scope.data.instances.push(entry)
+					entry.name = items[i];
+					entry.status = "";
+					rr.$scope.data.instances.push(entry);
 				}
 			}
+		rr.get_status();
 		rr.wait = false;
 		})
 	}
@@ -126,5 +160,19 @@ export class LabsController {
 			rr.$scope.data.iframe.height = "1000";
 			rr.wait = false;
 		})
+	}
+	get_status()
+	{
+		var rr = this;
+		this.wait = true;
+
+		this.$scope.data.instances.forEach(function(item)
+		{
+			rr.$http.post(rr.API_URL + '/api/check', {test: [item.name]}).then(function(result)
+			{
+				 item.status = result.data;
+			})
+		})
+		rr.wait = false;
 	}
 }

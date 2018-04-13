@@ -21,10 +21,4 @@ conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 
 for instance in conn.compute.servers():
 	if instance.name == server:
-		if instance.status ==  'ACTIVE':
-			conn.compute.suspend_server(instance.id)
-		else:
-			conn.compute.resume_server(instance.id)
-			#server = conn.compute.wait_for_server(instance.id)
-			#print server.status
-		print "Done"
+		print instance.status
