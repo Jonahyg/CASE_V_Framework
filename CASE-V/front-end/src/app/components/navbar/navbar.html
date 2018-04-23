@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
       <ul class="nav navbar-nav">
         <li ><a ng-href="#">Homepage</a></li>
-        <li "><a ng-href="#/projects">Projects</a></li>
-        <li "><a ng-href="#/labs">Labs</a></li>
-        <li "><a ng-href="#/admin">Admin</a></li>
-        <li "><a ng-href="#" ng-click="nav.logout()">Logout</a></li>
+        <li ng-show="nav.isAuthenticated()"><a ng-href="#/projects">Projects</a></li>
+        <li ng-show="nav.isAuthenticated()"><a ng-href="#/labs">Labs</a></li>
+        <li ng-show="nav.isAuthenticated() && nav.isadmin"><a ng-href="#/admin">Admin</a></li>
+        <li ng-show="nav.isAuthenticated()"><a ng-href="#" ng-click="nav.logout()">Logout</a></li>
       
       </ul>
         
