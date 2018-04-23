@@ -1,9 +1,9 @@
 export class MainController {
-  constructor ($http, ModalService, $scope, $sce, API_URL, $auth, $route) {
+  constructor ($http, ModalService, $scope, $sce, API_URL, $auth, $state) {
     'ngInject';
 
+    this.$state = $state;
     this.$http = $http;
-    this.$route = $route;
     this.$scope = $scope;
     this.ModalService = ModalService;
     this.switch = false;
@@ -17,6 +17,7 @@ export class MainController {
     this.get_levels();
     this.get_quotas();
     var vm = this;
+    this.str="";
 
   }
   Switch()
@@ -58,11 +59,12 @@ export class MainController {
     login() {
         //vm == view model
         var vm = this;
-        console.log(this.login);
         this.$auth.login(this.login.user).then(function(token){
             vm.$auth.setToken(token);
         });
         this.login.user = null;
+        console.log(vm.$auth.isAuthenticated()); 
+        this.$state.reload();
     }
     test()
     {
