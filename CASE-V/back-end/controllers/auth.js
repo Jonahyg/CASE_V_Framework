@@ -1,3 +1,4 @@
+//Login and Register Functions.
 var User = require('../models/User');
 var jwt = require('jwt-simple');
 var moment = require('moment');
