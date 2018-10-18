@@ -16,7 +16,7 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 
 angular.module('example', ['ui.router', 'ui.bootstrap', 'toastr', 'satellizer', 'angularModalService'])
-  .constant('API_URL', 'http://10.20.3.24:5000')
+  .constant('API_URL', 'http://0.0.0.0:5000') /* This should be changed to the IP of the back-end */
   .constant('malarkey', malarkey)
   .constant('moment', moment)
   .config(config)
