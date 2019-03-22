@@ -20,7 +20,7 @@ Case-v cloud experimentation environment
 8. Edit the index.modue.js file  
 ```sudo vi front-end/src/app/index.module.js```
 9. You must change the apiURL variable to the public IP of the backend.  
- 
+ <img src="https://github.com/Jonahyg/Senior-Project/blob/master/apiURL.png">  
 
 ##### Launching the Front-End
 In a terminal under the 'Senior-Project/CASE-V/front-end/' directory run ```gulp serve```
