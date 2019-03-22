@@ -19,7 +19,7 @@ quotas = ast.literal_eval(user["quotas"])
 conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
 	username=env['OS_USERNAME'],
 	password=env['OS_PASSWORD'],
-	project_name='demo',
+	project_name=env['OS_PROJECT_NAME'],
 	user_domain_id='default',
 	project_domain_id='default')
 
