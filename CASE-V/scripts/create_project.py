@@ -16,12 +16,17 @@ pwd = user["pwd"]
 quotas = ast.literal_eval(user["quotas"])
 
 ###############Authenticate Script###########################################
-conn = connection.Connection(auth_url=env['OS_AUTH_URL'],
-	username=env['OS_USERNAME'],
-	password=env['OS_PASSWORD'],
-	project_name=env['OS_PROJECT_NAME'],
-	user_domain_id='default',
-	project_domain_id='default')
+conn = connection.Connection(
+    region_name=env['OS_REGION_NAME'],
+	auth=dict(
+		auth_url=env['OS_AUTH_URL'],
+	    username=env['OS_USERNAME'],
+	    password=env['OS_PASSWORD'],
+	    project_id=env['OS_PROJECT_ID'],
+	    user_domain_id=env['OS_PROJECT_DOMAIN_ID']),
+	compute_api_version=env['OS_IDENTITY_API_VERSION'],
+	identity_interface=env['OS_INTERFACE'])
+	    
 
 
 project = conn.identity.create_project(name=project_name, domain_id="default", enabled=True, is_domain=False)
