@@ -26,7 +26,7 @@ conn = connection.Connection(
 	    password=env['OS_PASSWORD'],
 	    project_id=env['OS_PROJECT_ID'],
 	    user_domain_id=env['OS_PROJECT_DOMAIN_ID']),
-	compute_api_version=env['OS_IDENTITY_API_VERSION'],
+	compute_api_version=2,
 	identity_interface=env['OS_INTERFACE'])
 
 
