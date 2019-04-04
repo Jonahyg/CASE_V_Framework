@@ -31,11 +31,12 @@ conn = connection.Connection(
 
 
 image = conn.compute.find_image(image_name)
-flavor = conn.compute.find_flavor("m1.tiny")
-if image_name == "ubuntu":
-	flavor = conn.compute.find_flavor("m1.medium")
+flavor = conn.compute.find_flavor("coe.tiny")
+if ("ubuntu" in image_name or "Ubuntu" in image_name):
+	flavor = conn.compute.find_flavor("coe.medium")
+elif ("windows" in image_name or "Windows" in image_name):
+	flavor = conn.compute.find_flavor("coe.large")
 network = conn.network.find_network(network_name)
-
 server = conn.compute.create_server(name=instance_name, image_id=image.id, flavor_id=flavor.id, networks=[{"uuid": network.id}])
 server = conn.compute.wait_for_server(server)
 print server.status
