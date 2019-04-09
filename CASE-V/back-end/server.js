@@ -239,6 +239,24 @@ app.post('/api/reboot', checkAuthenticated, function(req, res)
 		shell.end();
 	})
 })
+app.post('/api/delete', checkAuthenticated, function(req, res)
+{
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("delete_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message);
+			res.send(message);
+		})
+		shell.end();
+	})
+})
 app.post('/api/instance', checkAuthenticated, function(req, res)
 {
 	User.findById(req.user, function(err, user)

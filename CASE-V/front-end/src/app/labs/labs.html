@@ -33,6 +33,8 @@
 	                <button ng-show="instance.status == 'SUSPENDED'" ng-disabled="labs.wait == true" ng-click="labs.suspend_instance(instance.name)" class="btn btn-default"> Resume </button>
 
 	                <button ng-disabled="labs.wait == true || instance.status != 'ACTIVE'" ng-click="labs.create_image(instance.name)" class="btn btn-default"> Create Image </button>
+
+	                <button ng-show="instance.status == 'SUSPENDED'" ng-disabled="labs.wait == true" ng-click="labs.delete_instance(instance.name)" class="btn btn-default"> Delete </button>
 	                <font color="green"> {{instance.status}}</font>
 	        </li>  
 	    </ul>

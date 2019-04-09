@@ -11,6 +11,7 @@ import ast
 user = json.loads(sys.argv[1])
 user_name = user["username"]
 project_name = user["projectname"]
+user_email = user["email"]
 pwd = user["pwd"]
 
 quotas = ast.literal_eval(user["quotas"])
@@ -39,6 +40,6 @@ while(done == False):
 		subprocess.check_output(["openstack", "quota", "set", project_name, "--ram", str(quotas["RAM (MB)"])])
 		subprocess.check_output(["openstack", "quota", "set", project_name, "--networks", str(quotas["Networks"])])
 		print user_name + " :" + project_name + ":" + pwd
-		new_user = conn.identity.create_user(name=user_name, domain_id="default", password=pwd)
+		new_user = conn.identity.create_user(name=user_name,password=pwd,email=user_email,default_project=project_name,enabled=True, domain_id="default")
 		done = True
 print "Done"

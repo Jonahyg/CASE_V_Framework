@@ -107,6 +107,16 @@ export class LabsController {
 			rr.get_instances();
 		})
 	}
+	delete_instance(vm_name)
+	{
+		this.wait = true;
+		var rr = this;
+		this.$http.post(this.API_URL + '/api/delete', {test: [vm_name]}).then(function(result)
+		{
+			rr.wait = false;
+			rr.get_instances();
+		})
+	}
 	create_image(vm_name)
 	{
 		this.wait = true;
