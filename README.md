@@ -45,5 +45,15 @@ In a terminal under the 'Senior-Project/CASE-V/front-end/' directory run ```gulp
 ##### Launching the Back-End
 Before launching the Back-End always make sure you have sourced the appropriate openrc file from openstack.  
 <img src="https://galaxyproject.org/cloud/jetstream/allocation/jetstream-os-api-creds.png">  
-In a terminal under the 'Senior-Project/CASE-V/back-end/' directory run ```node server.js```
+In a terminal under the 'Senior-Project/CASE-V/back-end/' directory run ```node server.js```  
 
+#### Editing MongoDB users
+If you are looking to edit or update user information you can do that through the mongo CLI.
+The following commands selects a user by their username and changes their verification status to false.
+run ```mongo``` on the terminal.
+```
+   db.users.update(
+   {username:"username_To_edit"},
+   {$set: { verified:false } } )
+```
+This process can be used to change all values contianed within the currently established database tables.
