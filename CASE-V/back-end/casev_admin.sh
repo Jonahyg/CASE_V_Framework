@@ -10,21 +10,21 @@
 # OpenStack API is version 3. For example, your cloud provider may implement
 # Image API v1.1, Block Storage API v2, and Compute API v2.0. OS_AUTH_URL is
 # only for the Identity API served through keystone.
-export OS_AUTH_URL=http://0.0.0.0:5000/v3
+export OS_AUTH_URL=http://10.20.20.112:5000/v3
 # With the addition of Keystone we have standardized on the term **project**
 # as the entity that owns the resources.
-export OS_PROJECT_ID=__PROJECT_ID__
-export OS_PROJECT_NAME="admin_Project"
+export OS_PROJECT_ID=d6de189638704298bedba964eda2218d
+export OS_PROJECT_NAME="casev_Project"
 export OS_USER_DOMAIN_NAME="casev_domain"
 if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
-export OS_PROJECT_DOMAIN_ID="__DOMAIN_ID__"
+export OS_PROJECT_DOMAIN_ID="0a6dc2729e744a4389190f9711bcc38e"
 if [ -z "$OS_PROJECT_DOMAIN_ID" ]; then unset OS_PROJECT_DOMAIN_ID; fi
 # unset v2.0 items in case set
 unset OS_TENANT_ID
 unset OS_TENANT_NAME
 # In addition to the owning entity (tenant), OpenStack stores the entity
 # performing the action as the **user**.
-export OS_USERNAME="admin"
+export OS_USERNAME="casev_admin"
 # With Keystone you pass the keystone password.
 echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: "
 read -sr OS_PASSWORD_INPUT

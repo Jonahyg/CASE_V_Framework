@@ -23,7 +23,7 @@ conn = connection.Connection(
 
 
 vm_name = sys.argv[2]
-rae = subprocess.check_output(["openstack", "console", "url", "show", "--spice", vm_name])
+rae = subprocess.check_output(["openstack", "console", "url", "show", "--novnc", vm_name])
 rae2 = rae.split("url   | ", 1)[1]
 rae3 = rae2.split(" |", 1)[0]
 print rae3
