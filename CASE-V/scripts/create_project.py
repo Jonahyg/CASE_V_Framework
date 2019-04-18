@@ -30,7 +30,7 @@ conn = connection.Connection(
 	    
 
 
-project = conn.identity.create_project(name=project_name, domain_id="default", enabled=True, is_domain=False)
+project = conn.identity.create_project(name=project_name, domain_id=env['OS_PROJECT_DOMAIN_ID'], enabled=True, is_domain=False)
 done = False
 while(done == False):
 	if project:
@@ -40,6 +40,6 @@ while(done == False):
 		subprocess.check_output(["openstack", "quota", "set", project_name, "--ram", str(quotas["RAM (MB)"])])
 		subprocess.check_output(["openstack", "quota", "set", project_name, "--networks", str(quotas["Networks"])])
 		print user_name + " :" + project_name + ":" + pwd
-		new_user = conn.identity.create_user(name=user_name,password=pwd,email=user_email,default_project=project_name,enabled=True, domain_id="default")
+		new_user = conn.identity.create_user(name=user_name,password=pwd,email=user_email,default_project=project_name,enabled=True, domain_id=env['OS_PROJECT_DOMAIN_ID'])
 		done = True
 print "Done"
