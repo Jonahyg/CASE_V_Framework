@@ -8,5 +8,6 @@ module.exports = mongoose.model('User',{
 	group: String,
 	username:String,
 	projectname:String,
-	quotas:Object
+	quotas:Object,
+	projectid:String
 });
