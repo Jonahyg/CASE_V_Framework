@@ -23,9 +23,14 @@ conn = connection.Connection(
 	compute_api_version=2,
 	identity_interface=env['OS_INTERFACE'])
 
+######Set the scope of openstack to the current users project##########
+origProj = env['OS_PROJECT_ID']
+env['OS_PROJECT_ID'] = projectid
 
 vm_name = sys.argv[2]
 rae = subprocess.check_output(["openstack", "console", "url", "show", "--novnc", vm_name])
 rae2 = rae.split("url   | ", 1)[1]
 rae3 = rae2.split(" |", 1)[0]
+
+env['OS_PROJECT_ID'] = origProj
 print rae3

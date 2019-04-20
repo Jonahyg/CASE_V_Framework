@@ -50,6 +50,7 @@ while(done == False):
 	try:
           new_user = conn.identity.create_user(name=user_name,password=pwd,email=user_email,default_project=project.id,enabled=True, domain_id=env['OS_PROJECT_DOMAIN_ID'])
           subprocess.call(["openstack", "role", "add", "--project", project_name, "--user", user_name, "Member"])
+          subprocess.call(["openstack", "role", "add", "--project", project_name, "--user", env['OS_USERNAME'], "Admin"])
           done = True
 	except:
           print "Username already exists"
