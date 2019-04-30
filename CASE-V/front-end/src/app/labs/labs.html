@@ -1,6 +1,5 @@
 <div class="container">
-	<div class="col-md-8">
-		<div ng-hide="main.switch">
+	<div class="col-md-8" ng-hide="checked">
 		<label for="Images"> Select Image you wish to Create instance of: </label>
 		<select name="Images" ng-model="data.model">
 			<option ng-repeat="image in data.images" value="{{image.name}}"> {{image.name}} </option>
@@ -17,17 +16,19 @@
 		<label for="Name"> Name of Instance </label>
 		<input name="Name" class="form-control" ng-model="data.vm_name">
 		<button ng-disabled="data.model == null || data.vm_name == '' || labs.wait == true || data.network_name == '' " ng-click="labs.launch_instance()" class="btn btn-default">Create Instance</button>
-		<br> Looking for Automated Labs? <button ng-click="main.Switch()"> Training Labs </button>
-		</div>
+		<br> Looking for Automated Labs?: <input type="checkbox" ng-model="checked">
+	</div>
 
-		<div ng-hide="!main.switch">
+	<div class="col-md-8" ng-hide="!checked">
 			<label for="TrainingLabs"> Select the Training Lab you wish to Initialize: </label>
 		<select name="TrainingLabs" ng-model="data.model">
-			<option ng-repeat="image in data.training" value="{{image.name}}"> {{image.name}} </option>
+			<option ng-repeat="labs in data.traininglabs" value="{{traininglabs}}"> {{traininglabs}} </option>
 		</select>
+		<br />
 		<button ng-disabled="data.model == null || labs.wait == true" ng-click="labs.launch_training()" class="btn btn-default">Create Training Lab</button>
-		<br> Looking to create singular instances? <button ng-click="main.Switch()"> Instance Creation </button>
-	    </div>
+		<br> Looking for Automated Labs?: <input type="checkbox" ng-model="checked">
+	</div>
+</div>
 		<br>
 		<br>
 		<br>

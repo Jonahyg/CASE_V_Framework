@@ -23,20 +23,12 @@ export class LabsController {
 		network_name: ""
 	    };
 	}
-	Switch()
-   {
-    if(this.switch == false)
-        this.switch = true;
-    else
-        this.switch = false;
-    console.log(this.switch);
-   }
    get_training()
    {
     var rr = this;
     this.$http.get(this.API_URL + '/api/traininglabs').then(function(result)
     {
-        rr.$scope.data.training = result.data;
+        rr.$scope.data.traininglabs.push(result);
     });
    }
 	get_networks()
