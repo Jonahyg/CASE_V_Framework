@@ -17,7 +17,7 @@ export class LabsController {
 		images: [],
 		instances: [],
 		networks: [],
-		traininglabs [],
+		traininglabs: [],
 		iframe: {height: "0", width: "0", src: ""},
 		vm_name: "",
 		network_name: ""
