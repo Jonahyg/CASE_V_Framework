@@ -1,0 +1,22 @@
+{
+	"Gh0st_RAT": {
+				    "Instance1":{
+				    	"VM_Name":"Gh0st_Attack",
+				    	"vm_id":"",
+				    	"network_id":"",
+				    	"flavor_id":"coe.large"
+				    },
+					"Instance2":{
+				    	"VM_Name":"Gh0st_Victim",
+				    	"vm_id":"",
+				    	"network_id":"",
+				    	"flavor_id":"coe.large"
+				    },
+				    "Instance3":{
+				    	"VM_Name":"Gh0st_Kali",
+				    	"vm_id":"",
+				    	"network_id":"s",
+				    	"flavor_id":"coe.medium"
+				    }
+				}
+}

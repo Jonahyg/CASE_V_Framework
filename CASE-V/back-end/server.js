@@ -113,6 +113,11 @@ app.get('/api/quotas', function(req, res)
 	var quotas = JSON.parse(fs.readFileSync('quotas.json', 'utf8'));
 	res.send(quotas);
 })
+app.get('/api/traininglabs', function(req, res)
+{
+	var training = JSON.parse(fs.readFileSync('training.json', 'utf8'));
+	res.send(training);
+})
 app.post('/api/username', function(req, res)
 {
 	//console.log(req.body.test);
@@ -267,6 +272,24 @@ app.post('/api/instance', checkAuthenticated, function(req, res)
 		arr.unshift(JSON.stringify(user));
 		setOptions(arr);
 		var shell = new PythonShell("create_instance.py", options);
+		shell.on('message', function (message)
+		{
+			console.log(message)
+			res.send(message);
+		})
+		shell.end();
+	})
+})
+app.post('/api/training', checkAuthenticated, function(req, res)
+{
+	User.findById(req.user, function(err, user)
+	{
+		arr = req.body.test;
+	//	console.log(user);
+	//	console.log(JSON.stringify(user));
+		arr.unshift(JSON.stringify(user));
+		setOptions(arr);
+		var shell = new PythonShell("create_lab.py", options);
 		shell.on('message', function (message)
 		{
 			console.log(message)

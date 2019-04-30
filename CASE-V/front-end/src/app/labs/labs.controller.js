@@ -8,6 +8,7 @@ export class LabsController {
     this.get_images();
     this.get_instances();
     this.get_networks();
+    this.get_training();
     //this.get_status();
     this.wait = false;
     this.$scope.data = {
@@ -16,11 +17,28 @@ export class LabsController {
 		images: [],
 		instances: [],
 		networks: [],
+		traininglabs [],
 		iframe: {height: "0", width: "0", src: ""},
 		vm_name: "",
 		network_name: ""
 	    };
 	}
+	Switch()
+   {
+    if(this.switch == false)
+        this.switch = true;
+    else
+        this.switch = false;
+    console.log(this.switch);
+   }
+   get_training()
+   {
+    var rr = this;
+    this.$http.get(this.API_URL + '/api/traininglabs').then(function(result)
+    {
+        rr.$scope.data.training = result.data;
+    });
+   }
 	get_networks()
 	{
 		this.wait = true;
@@ -74,6 +92,24 @@ export class LabsController {
 		if(this.$scope.data.model != null)
 		{
 			this.$http.post(this.API_URL + '/api/instance', {test: [this.$scope.data.model, this.$scope.data.vm_name, this.$scope.data.network_name]}).then(function(result)
+			{
+				if(result.data == "ACTIVE")
+				{
+					rr.get_instances()
+				}
+
+				rr.wait = false;
+				rr.clear_fields();
+			})
+		}
+	}
+	launch_training()
+	{
+    	this.wait = true;
+		var rr = this;
+		if(this.$scope.data.model != null)
+		{
+			this.$http.post(this.API_URL + '/api/training', {test: [this.$scope.data.model]}).then(function(result)
 			{
 				if(result.data == "ACTIVE")
 				{
