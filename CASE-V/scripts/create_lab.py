@@ -32,7 +32,7 @@ conn = connection.Connection(
 with open('../back-end/training.json') as json_file:  
     data = json.load(json_file)
 
-for i in range(1,len(data[trainingName])+1):
+for i in range(1,len(data['Training_Labs'][trainingName])+1):
     instance = data[trainingName]['Instance'+str(i)]
     server = conn.compute.create_server(name=instance['VM_Name'], image_id=instance['vm_id'],flavor_id=instance['flavor_id'],networks=[{"uuid": instance['network_id']}])
     server = conn.compute.wait_for_server(server)

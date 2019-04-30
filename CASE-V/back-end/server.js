@@ -115,8 +115,8 @@ app.get('/api/quotas', function(req, res)
 })
 app.get('/api/traininglabs', function(req, res)
 {
-	var training = JSON.parse(fs.readFileSync('training.json', 'utf8'));
-	res.send(training);
+	var training = JSON.parse(fs.readFileSync('training.json','utf8'));
+	res.json(training);
 })
 app.post('/api/username', function(req, res)
 {

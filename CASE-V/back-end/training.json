@@ -1,22 +1,25 @@
 {
-	"Gh0st_RAT": {
-				    "Instance1":{
-				    	"VM_Name":"Gh0st_Attack",
-				    	"vm_id":"",
-				    	"network_id":"",
-				    	"flavor_id":"coe.large"
-				    },
-					"Instance2":{
-				    	"VM_Name":"Gh0st_Victim",
-				    	"vm_id":"",
-				    	"network_id":"",
-				    	"flavor_id":"coe.large"
-				    },
-				    "Instance3":{
-				    	"VM_Name":"Gh0st_Kali",
-				    	"vm_id":"",
-				    	"network_id":"s",
-				    	"flavor_id":"coe.medium"
-				    }
-				}
+	"Training_Labs": {
+		"Gh0st_RAT": {
+			    "Instance1":{
+			    	"VM_Name":"Gh0st_Attack",
+			    	"vm_id":"",
+			    	"network_id":"",
+			    	"flavor_id":"7bc6a5f1-5e61-45f1-8959-c849ab192d3d"
+			    },
+				"Instance2":{
+			    	"VM_Name":"Gh0st_Victim",
+			    	"vm_id":"",
+			    	"network_id":"",
+			    	"flavor_id":"7bc6a5f1-5e61-45f1-8959-c849ab192d3d"
+			    },
+			    "Instance3":{
+			    	"VM_Name":"Gh0st_Kali",
+			    	"vm_id":"",
+			    	"network_id":"s",
+			    	"flavor_id":"7bc6a5f1-5e61-45f1-8959-c849ab192d3d"
+			    }
+		}
+
+	}
 }

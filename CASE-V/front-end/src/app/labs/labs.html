@@ -22,7 +22,7 @@
 	<div class="col-md-8" ng-hide="!checked">
 			<label for="TrainingLabs"> Select the Training Lab you wish to Initialize: </label>
 		<select name="TrainingLabs" ng-model="data.model">
-			<option ng-repeat="labs in data.traininglabs" value="{{traininglabs}}"> {{traininglabs}} </option>
+			<option ng-repeat="traininglabs in data.traininglabs" value="{{traininglabs}}"> {{traininglabs}} </option>
 		</select>
 		<br />
 		<button ng-disabled="data.model == null || labs.wait == true" ng-click="labs.launch_training()" class="btn btn-default">Create Training Lab</button>

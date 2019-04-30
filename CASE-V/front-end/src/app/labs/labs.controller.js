@@ -17,7 +17,7 @@ export class LabsController {
 		images: [],
 		instances: [],
 		networks: [],
-		traininglabs: [],
+		traininglabs: {},
 		iframe: {height: "0", width: "0", src: ""},
 		vm_name: "",
 		network_name: ""
@@ -28,7 +28,8 @@ export class LabsController {
     var rr = this;
     this.$http.get(this.API_URL + '/api/traininglabs').then(function(result)
     {
-        rr.$scope.data.traininglabs.push(result);
+    	var obj = JSON.parse(result);
+        rr.$scope.data.traininglabs = obj;
     });
    }
 	get_networks()
