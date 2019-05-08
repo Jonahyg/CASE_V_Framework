@@ -9,7 +9,7 @@ Case-v cloud experimentation environment
 3. Run the following command to create the front-end & back-end, changing the names respectively.  
 <img src="https://github.com/Jonahyg/Senior-Project/blob/master/">
 4. In the openstack interface you must then associate a floating IP to both instances. This will allow the front-end & back-end internet access.  
-<img src="https://github.com/Jonahyg/Senior-Project/blob/master/">
+<img src="https://github.com/Jonahyg/Senior-Project/blob/master/floatingIP.png">
 
 ### Front-End Install Procedure
 1. In a terminal window clone our repository from github.  
